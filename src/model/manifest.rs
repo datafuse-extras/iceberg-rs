@@ -258,3 +258,38 @@ pub struct DataFile {
     /// ID representing sort order of this file
     sort_order_id: i32,
 }
+
+#[cfg(test)]
+mod test {
+    use anyhow::anyhow;
+    use anyhow::Result;
+    use apache_avro::from_value;
+
+    use crate::model::manifest::Manifest;
+    use crate::model::manifest::ManifestEntry;
+
+    #[test]
+    pub fn test_parse_manifest_lists() -> Result<()> {
+        let manifest_list_path = "test-data/metadata/snap-6560075252320843098-1-9624c71f-198f-47fe-824b-0291f8998018.avro";
+        let file = std::fs::File::open(manifest_list_path)?;
+        let reader = apache_avro::Reader::new(file)?;
+        for value in reader {
+            let manifest_list: Manifest = from_value(&value?)
+                .map_err(|e| anyhow!("failed to read manifest list: {:?}", e))?;
+            println!("{:?}", manifest_list);
+        }
+        Ok(())
+    }
+    #[test]
+    pub fn test_parse_manifest_entry() -> Result<()> {
+        let manifest_path = "test-data/metadata/9624c71f-198f-47fe-824b-0291f8998018-m1.avro";
+        let file = std::fs::File::open(manifest_path)?;
+        let reader = apache_avro::Reader::new(file)?;
+        for value in reader {
+            let manifest: ManifestEntry =
+                from_value(&value?).map_err(|e| anyhow!("failed to read manifest: {:?}", e))?;
+            println!("{:?}", manifest);
+        }
+        Ok(())
+    }
+}
