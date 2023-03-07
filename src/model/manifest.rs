@@ -118,13 +118,13 @@ pub struct ManifestFile {
     pub partitions: Vec<FieldSummary>,
     /// Number of rows in all the files in the manifest that have status `ADDED`;
     /// when `null` is assumed to be none zero
-    pub added_rows_count: Option<i64>,
+    pub added_rows_count: i64,
     /// Number of rows in all the files in the manifest that have status `EXISTING`;
     /// when `null` this is assumed to be none zero
-    pub existing_rows_count: Option<i64>,
+    pub existing_rows_count: i64,
     /// Number of rows in all the files in the manifest that have status `DELETED`;
     /// when `null` this is assumed to be none zero
-    pub deleted_rows_count: Option<i64>,
+    pub deleted_rows_count: i64,
     /// ID of a partition spec used to write the manifest;
     /// must be listed in table metadata's `partition-specs`
     pub partition_spec_id: i32,
@@ -143,12 +143,12 @@ pub struct FieldSummary {
     pub contains_nan: bool,
     /// Lower bound for the non-null, non-NaN values in the partition field,
     /// or null if all values are null or NaN
-    #[serde_as(as = "Bytes")]
-    pub lower_bound: Vec<u8>,
+    #[serde_as(as = "Option<Bytes>")]
+    pub lower_bound: Option<Vec<u8>>,
     /// Upper bound for the non-null, non-NaN values in the partition field,
     /// or null if all values are null or NaN
-    #[serde_as(as = "Bytes")]
-    pub upper_bound: Vec<u8>,
+    #[serde_as(as = "Option<Bytes>")]
+    pub upper_bound: Option<Vec<u8>>,
 }
 
 /// A manifest is an immutable Avro file that
@@ -169,7 +169,7 @@ pub struct Manifest {
     /// the version of format
     pub format_version: i64,
     /// a enum indicating diff type, add or sub
-    pub content: String,
+    pub content: i32,
 }
 
 /// The manifest entry is a struct that contains the metadata of the file
@@ -265,8 +265,8 @@ mod test {
     use anyhow::Result;
     use apache_avro::from_value;
 
-    use crate::model::manifest::Manifest;
     use crate::model::manifest::ManifestEntry;
+    use crate::model::manifest::ManifestFile;
 
     #[test]
     pub fn test_parse_manifest_lists() -> Result<()> {
@@ -274,8 +274,9 @@ mod test {
         let file = std::fs::File::open(manifest_list_path)?;
         let reader = apache_avro::Reader::new(file)?;
         for value in reader {
-            let manifest_list: Manifest = from_value(&value?)
-                .map_err(|e| anyhow!("failed to read manifest list: {:?}", e))?;
+            let value = value?;
+            let manifest_list: ManifestFile =
+                from_value(&value).map_err(|e| anyhow!("failed to read manifest: {:?}", e))?;
             println!("{:?}", manifest_list);
         }
         Ok(())
@@ -286,8 +287,9 @@ mod test {
         let file = std::fs::File::open(manifest_path)?;
         let reader = apache_avro::Reader::new(file)?;
         for value in reader {
+            let value = value?;
             let manifest: ManifestEntry =
-                from_value(&value?).map_err(|e| anyhow!("failed to read manifest: {:?}", e))?;
+                from_value(&value).map_err(|e| anyhow!("failed to read manifest: {:?}", e))?;
             println!("{:?}", manifest);
         }
         Ok(())
