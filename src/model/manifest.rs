@@ -264,6 +264,7 @@ mod test {
     use anyhow::anyhow;
     use anyhow::Result;
     use apache_avro::from_value;
+    use apache_avro::Reader;
 
     use crate::model::manifest::ManifestEntry;
     use crate::model::manifest::ManifestFile;
@@ -272,7 +273,7 @@ mod test {
     pub fn test_parse_manifest_lists() -> Result<()> {
         let manifest_list_path = "test-data/metadata/snap-6560075252320843098-1-9624c71f-198f-47fe-824b-0291f8998018.avro";
         let file = std::fs::File::open(manifest_list_path)?;
-        let reader = apache_avro::Reader::new(file)?;
+        let reader = Reader::new(file)?;
         for value in reader {
             let value = value?;
             let manifest_list: ManifestFile =
@@ -285,7 +286,7 @@ mod test {
     pub fn test_parse_manifest_entry() -> Result<()> {
         let manifest_path = "test-data/metadata/9624c71f-198f-47fe-824b-0291f8998018-m1.avro";
         let file = std::fs::File::open(manifest_path)?;
-        let reader = apache_avro::Reader::new(file)?;
+        let reader = Reader::new(file)?;
         for value in reader {
             let value = value?;
             let manifest: ManifestEntry =
