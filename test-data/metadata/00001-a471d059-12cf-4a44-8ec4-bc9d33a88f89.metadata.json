@@ -1,0 +1,67 @@
+{
+  "format-version" : 2,
+  "table-uuid" : "16c86041-2fff-4dec-9407-f28ff60b64a8",
+  "location" : "s3://iceberg-data/iceberg_ctl/nyc/taxis",
+  "last-sequence-number" : 0,
+  "last-updated-ms" : 1678006804765,
+  "last-column-id" : 5,
+  "current-schema-id" : 0,
+  "schemas" : [ {
+    "type" : "struct",
+    "schema-id" : 0,
+    "fields" : [ {
+      "id" : 1,
+      "name" : "vendor_id",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 2,
+      "name" : "trip_id",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 3,
+      "name" : "trip_distance",
+      "required" : false,
+      "type" : "float"
+    }, {
+      "id" : 4,
+      "name" : "fare_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 5,
+      "name" : "store_and_fwd_flag",
+      "required" : false,
+      "type" : "string"
+    } ]
+  } ],
+  "default-spec-id" : 0,
+  "partition-specs" : [ {
+    "spec-id" : 0,
+    "fields" : [ {
+      "name" : "vendor_id",
+      "transform" : "identity",
+      "source-id" : 1,
+      "field-id" : 1000
+    } ]
+  } ],
+  "last-partition-id" : 1000,
+  "default-sort-order-id" : 0,
+  "sort-orders" : [ {
+    "order-id" : 0,
+    "fields" : [ ]
+  } ],
+  "properties" : {
+    "owner" : "root"
+  },
+  "current-snapshot-id" : -1,
+  "refs" : { },
+  "snapshots" : [ ],
+  "statistics" : [ ],
+  "snapshot-log" : [ ],
+  "metadata-log" : [ {
+    "timestamp-ms" : 1678006804004,
+    "metadata-file" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/00000-eff8c1f4-4b94-451d-8eef-fc1c86b60f76.metadata.json"
+  } ]
+}

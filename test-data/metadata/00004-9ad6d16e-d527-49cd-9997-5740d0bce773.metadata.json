@@ -1,0 +1,165 @@
+{
+  "format-version" : 2,
+  "table-uuid" : "16c86041-2fff-4dec-9407-f28ff60b64a8",
+  "location" : "s3://iceberg-data/iceberg_ctl/nyc/taxis",
+  "last-sequence-number" : 2,
+  "last-updated-ms" : 1678006813865,
+  "last-column-id" : 6,
+  "current-schema-id" : 1,
+  "schemas" : [ {
+    "type" : "struct",
+    "schema-id" : 0,
+    "fields" : [ {
+      "id" : 1,
+      "name" : "vendor_id",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 2,
+      "name" : "trip_id",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 3,
+      "name" : "trip_distance",
+      "required" : false,
+      "type" : "float"
+    }, {
+      "id" : 4,
+      "name" : "fare_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 5,
+      "name" : "store_and_fwd_flag",
+      "required" : false,
+      "type" : "string"
+    } ]
+  }, {
+    "type" : "struct",
+    "schema-id" : 1,
+    "fields" : [ {
+      "id" : 1,
+      "name" : "vendor_id",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 2,
+      "name" : "trip_id",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 3,
+      "name" : "trip_distance",
+      "required" : false,
+      "type" : "float"
+    }, {
+      "id" : 4,
+      "name" : "fare_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 5,
+      "name" : "store_and_fwd_flag",
+      "required" : false,
+      "type" : "string"
+    }, {
+      "id" : 6,
+      "name" : "comment",
+      "required" : false,
+      "type" : "string"
+    } ]
+  } ],
+  "default-spec-id" : 0,
+  "partition-specs" : [ {
+    "spec-id" : 0,
+    "fields" : [ {
+      "name" : "vendor_id",
+      "transform" : "identity",
+      "source-id" : 1,
+      "field-id" : 1000
+    } ]
+  } ],
+  "last-partition-id" : 1000,
+  "default-sort-order-id" : 0,
+  "sort-orders" : [ {
+    "order-id" : 0,
+    "fields" : [ ]
+  } ],
+  "properties" : {
+    "owner" : "root"
+  },
+  "current-snapshot-id" : 6560075252320843098,
+  "refs" : {
+    "main" : {
+      "snapshot-id" : 6560075252320843098,
+      "type" : "branch"
+    }
+  },
+  "snapshots" : [ {
+    "sequence-number" : 1,
+    "snapshot-id" : 5517720891387060104,
+    "timestamp-ms" : 1678006806930,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "local-1678006795029",
+      "added-data-files" : "4",
+      "added-records" : "4",
+      "added-files-size" : "6001",
+      "changed-partition-count" : "2",
+      "total-records" : "4",
+      "total-files-size" : "6001",
+      "total-data-files" : "4",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/snap-5517720891387060104-1-314d71c5-8fab-45a4-a484-d4cc92cccc8d.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 2,
+    "snapshot-id" : 6560075252320843098,
+    "parent-snapshot-id" : 5517720891387060104,
+    "timestamp-ms" : 1678006813865,
+    "summary" : {
+      "operation" : "overwrite",
+      "spark.app.id" : "local-1678006795029",
+      "added-data-files" : "4",
+      "deleted-data-files" : "4",
+      "added-records" : "4",
+      "deleted-records" : "4",
+      "added-files-size" : "7161",
+      "removed-files-size" : "6001",
+      "changed-partition-count" : "2",
+      "total-records" : "4",
+      "total-files-size" : "7161",
+      "total-data-files" : "4",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/snap-6560075252320843098-1-9624c71f-198f-47fe-824b-0291f8998018.avro",
+    "schema-id" : 1
+  } ],
+  "statistics" : [ ],
+  "snapshot-log" : [ {
+    "timestamp-ms" : 1678006806930,
+    "snapshot-id" : 5517720891387060104
+  }, {
+    "timestamp-ms" : 1678006813865,
+    "snapshot-id" : 6560075252320843098
+  } ],
+  "metadata-log" : [ {
+    "timestamp-ms" : 1678006804004,
+    "metadata-file" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/00000-eff8c1f4-4b94-451d-8eef-fc1c86b60f76.metadata.json"
+  }, {
+    "timestamp-ms" : 1678006804765,
+    "metadata-file" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/00001-a471d059-12cf-4a44-8ec4-bc9d33a88f89.metadata.json"
+  }, {
+    "timestamp-ms" : 1678006806930,
+    "metadata-file" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/00002-7d072f1b-8835-4dd2-9088-fe12c85b62e9.metadata.json"
+  }, {
+    "timestamp-ms" : 1678006807160,
+    "metadata-file" : "s3://iceberg-data/iceberg_ctl/nyc/taxis/metadata/00003-02094c6b-e0a4-41c8-a5cd-9a9252a7fd55.metadata.json"
+  } ]
+}
